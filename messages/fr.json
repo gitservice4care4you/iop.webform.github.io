@@ -1,0 +1,43 @@
+{
+  "Navbar": {
+    "home": "Accueil",
+    "form": "Formulaire",
+    "support": "Support",
+    "about": "À propos",
+    "logout": "Se déconnecter"
+  },
+  "Footer": {
+    "copyright": "Care4you Tous droits réservés."
+  },
+  "homepage": {
+    "titles": {
+      "welcome": "Bienvenue sur IOP",
+      "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+    },
+    "button": "Aller au formulaire"
+  },
+  "formpage": {
+    "title": "Signaler un incident",
+    "information": "Informations sur l'incident",
+    "location": "Informations sur l'incident",
+    "media": "Informations sur l'incident",
+    "whenHappen": "Quand cela s'est-il produit ?",
+    "whenHear": "Quand en avez-vous entendu parler ?",
+    "whatActions": "Quelles sont les actions ?",
+    "description": "Description",
+    "category": "Catégorie d'incident",
+    "subCategory": "Sous-catégorie d'incident",
+    "action": "Action",
+    "who": "Qui l'a fait ?",
+    "rootCause": "Cause principale",
+    "sourceInfo": "Source d'information"
+,
+    "howMany": "Combien ?",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "validation": {
+      "general": "Ce champ est obligatoire !",
+      "actions": "Veuillez ajouter au moins 1 action."
+    }
+  }
+}

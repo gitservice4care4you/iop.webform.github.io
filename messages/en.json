@@ -1,0 +1,42 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "form": "Form",
+    "support": "Support",
+    "about": "About",
+    "logout": "Logout"
+  },
+  "Footer": {
+    "copyright": "Care4you All rights reserved."
+  },
+  "homepage": {
+    "titles": {
+      "welcome": "Welcome to IOP",
+      "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+    },
+    "button": "Go to form"
+  },
+  "formpage": {
+    "title": "Report an incident",
+    "information": "Incident information",
+    "location": "Location",
+    "media": "Media",
+    "whenHappen": "When did this happen?",
+    "whenHear": "When did you hear about it?",
+    "description": "Description",
+    "whatActions": "What are the actions?",
+    "category": "Category of incident",
+    "subCategory": "Sub-category of incident",
+    "action": "Action",
+    "who": "Who did it?",
+    "rootCause": "Root cause",
+    "sourceInfo": "Source of info",
+    "howMany": "How many?",
+    "next": "Next",
+    "previous": "Previous",
+    "validation": {
+      "general": "this field is required!",
+      "actions": "Please add at least 1 actions."
+    }
+  }
+}
