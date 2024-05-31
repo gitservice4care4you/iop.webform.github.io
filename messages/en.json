@@ -7,7 +7,7 @@
     "logout": "Logout"
   },
   "Footer": {
-    "copyright": "Care4you All rights reserved."
+    "copyright": " All rights reserved."
   },
   "homepage": {
     "titles": {
@@ -24,7 +24,7 @@
     "whenHappen": "When did this happen?",
     "whenHear": "When did you hear about it?",
     "description": "Description",
-    "whatActions": "What are the actions?",
+    "whatActions": "What happended?",
     "category": "Category of incident",
     "subCategory": "Sub-category of incident",
     "action": "Action",
@@ -37,6 +37,17 @@
     "validation": {
       "general": "this field is required!",
       "actions": "Please add at least 1 actions."
-    }
+    },
+    "country": "Country",
+    "city": "City",
+    "locationDetails": "Location details",
+    "optional": "Optional",
+    "submit": "Submit",
+    "addAction": "Add action",
+    "addActionDescription": "Please start by selecting the category first."
+  },
+  "supportpage": {
+    "title": "Need Support?",
+    "paragraph": "Our support page is designed to provide you with the resources and assistance you need to get the most out of our application. Whether you have a question, need help troubleshooting an issue, or want to provide feedback, our dedicated support team is here to help. You can reach out to us through the contact form on this page, and we'll get back to you as soon as possible."
   }
 }

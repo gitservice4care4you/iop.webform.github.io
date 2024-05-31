@@ -3,8 +3,7 @@ import React, { Suspense, use, useState } from "react";
 import styles from "../../main.module.css";
 import { useTranslations } from "next-intl";
 
-import { getDogs } from "./getDogs";
-import CircularIndeterminate from "../../components/loadingIndicator/LoadingIndicator";
+import LoadinIndicator from "../../components/loadingIndicator/LoadingIndicator";
 import ClientFormPage from "./ClientFormPage";
 type Props = {};
 
@@ -13,22 +12,22 @@ interface Data {
   status: string;
 }
 const FormPage = (props: Props) => {
-  let data: Data = use(getDogs());
-
+  const data: any[] = [];
   return (
     <Suspense
       fallback={
-        <div>
-          <CircularIndeterminate />
-        </div>
+        <Stack
+          justifyContent={"center"}
+          alignItems={"center"}
+          className={styles.bodyHeight}
+        >
+          <LoadinIndicator />
+        </Stack>
       }
     >
-      <Box
-        className={styles.bodyHeight}
-        sx={{ backgroundColor: "background.default" }}
-      >
+      <Container maxWidth="md" disableGutters className={styles.bodyHeight}>
         <ClientFormPage data={data}></ClientFormPage>
-      </Box>
+      </Container>
     </Suspense>
   );
 };

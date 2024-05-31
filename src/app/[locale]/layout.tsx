@@ -55,7 +55,7 @@ export default function RootLayout({
             <NextIntlClientProvider messages={messages} locale={locale}>
               <ResponsiveAppBar></ResponsiveAppBar>
               {children}
-              <Footer />
+              {/* <Footer /> */}
             </NextIntlClientProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>

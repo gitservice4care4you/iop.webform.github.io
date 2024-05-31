@@ -6,5 +6,4 @@ export const getAppLanguage = (): string => {
 
 export const setAppLanguage = (newLanguage: string): void => {
   appLanguage = newLanguage;
-  console.log(`new Lang : ${appLanguage}`);
 };

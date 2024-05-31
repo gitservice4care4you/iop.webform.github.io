@@ -7,10 +7,11 @@
 import DefaultButton from "@/app/[locale]/components/button/DefaultButton";
 import { Stack, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import AddActionModal from "./AddActionModal";
+import AddActionDialog from "./AddActionDialog";
 import { ActionListContext } from "@/context/actionsListContext";
 import { useTranslations } from "next-intl";
 import { faker } from "@faker-js/faker";
+import { ActionListModel } from "../models/ActionListModel";
 type Props = {};
 
 const ActionTitleBar = (props: Props) => {
@@ -65,22 +66,22 @@ const ActionTitleBar = (props: Props) => {
       alignItems={"end"}
     >
       {/** Renders the AddActionModal for adding new actions. */}
-      <AddActionModal
+      <AddActionDialog
         open={open}
         onClose={handleClose}
         onSubmit={(data) =>
           handleAddItem({
             id: faker.number.int({ min: 0, max: 100 }),
             category: {
-              id: faker.number.int({ min: 0, max: 100 }),
+              id: data.category?.id,
               name: data.category!.name!,
             },
             subCategory: {
-              id: faker.number.int({ min: 0, max: 100 }),
+              id: data.subCategory?.id,
               name: data.subCategory!.name,
             },
             action: {
-              id: faker.number.int({ min: 0, max: 100 }),
+              id: data.action?.id,
               name: data.action!.name,
             },
             howMany: data.howMany,

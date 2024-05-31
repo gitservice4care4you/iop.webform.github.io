@@ -27,9 +27,10 @@ const theme = createTheme({
       white: "#ffffff",
     },
     primary: {
-      main: "#8C4A7E",
-      light: "#8C4E7E80",
+      main: "#1F8A70",
+      light: "#1F8A7080",
     },
+
     background: {
       default: "#F5F5F5",
     },

@@ -19,6 +19,7 @@ import useLogin from "@/hooks/useLoginHook";
 import LanguageSelector from "../select/language_selector/LanguageSelector";
 import { useLocale, useTranslations } from "next-intl";
 import path from "path";
+import { Stack } from "@mui/material";
 interface Pages {
   id: number;
   displayName: string;
@@ -29,10 +30,10 @@ function ResponsiveAppBar() {
   const t = useTranslations("Navbar");
   const currentLocale = useLocale();
   const pages: Pages[] = [
-    { id: 1, displayName: t("home"), pathName: "home" },
+    // { id: 1, displayName: t("home"), pathName: "home" },
     { id: 2, displayName: t("form"), pathName: "form" },
     { id: 3, displayName: t("support"), pathName: "support" },
-    { id: 4, displayName: t("about"), pathName: "about" },
+    // { id: 4, displayName: t("about"), pathName: "about" },
   ];
   const settings = ["Logout"];
   const pathname = usePathname();
@@ -52,35 +53,38 @@ function ResponsiveAppBar() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ height: "7.83vh" }}>
+        <Toolbar
+          disableGutters
+          sx={{
+            height: "7.83vh",
+          }}
+        >
           {/* Logo */}
           {logoDesktop()}
           {/* Mobile menu button */}
           {mobileMenuButton()}
-
           {/* Mobile Logo */}
           {logoMobile()}
           {/* Desktop NavLinks */}
           {DesktopNavLinks()}
-
-          {loginHook.isLogin ? userAvatar() : <LanguageSelector />}
+          <LanguageSelector />{" "}
         </Toolbar>
       </Container>
     </AppBar>
   );
 
+  /**
+   * Generates the URL path for the current page based on the current locale.
+   *
+   * If the current page is the "home" page, the URL path will be just the current locale (e.g. "/en").
+   * Otherwise, the URL path will be the current locale followed by the page path name (e.g. "/en/about").
+   *
+   * @param currentLocale - The current locale, e.g. "en", "fr", "es", etc.
+   * @param page - An object containing the path name of the current page.
+   * @returns The generated URL path for the current page.
+   */
   function getPath(page: Pages): string {
-    /**
-     * Generates the URL path for the current page based on the current locale.
-     *
-     * If the current page is the "home" page, the URL path will be just the current locale (e.g. "/en").
-     * Otherwise, the URL path will be the current locale followed by the page path name (e.g. "/en/about").
-     *
-     * @param currentLocale - The current locale, e.g. "en", "fr", "es", etc.
-     * @param page - An object containing the path name of the current page.
-     * @returns The generated URL path for the current page.
-     */
-    return page.pathName === "home"
+    return page.pathName === "form"
       ? `/${currentLocale}`
       : `/${currentLocale}/${page.pathName}`;
   }
@@ -94,7 +98,7 @@ function ResponsiveAppBar() {
      * @param pathname - The pathname to compare the current page against.
      * @returns `true` if the current page matches the provided pathname, `false` otherwise.
      */
-    currentPage === "home"
+    currentPage === "form"
       ? (currentPage = `/${currentLocale}`)
       : (currentPage = `/${currentLocale}/${currentPage}`);
 
@@ -206,12 +210,17 @@ function ResponsiveAppBar() {
         <SpaIcon
           sx={{
             display: { xs: "flex", md: "none" },
-            mr: 1,
+            me: 1,
             width: "35px",
             height: "35px",
           }}
         />
-        <Typography
+        <Box
+          sx={{
+            flexGrow: 1,
+          }}
+        ></Box>
+        {/* <Typography
           variant="h4"
           noWrap
           sx={{
@@ -226,7 +235,7 @@ function ResponsiveAppBar() {
           }}
         >
           IOP
-        </Typography>
+        </Typography> */}
       </>
     );
   }
@@ -240,9 +249,16 @@ function ResponsiveAppBar() {
             marginInlineEnd: "10px",
             width: "35px",
             height: "35px",
+            // flexGrow: 1,
           }}
         />
-        <Typography
+        <Box
+          sx={{
+            display: { xs: "none", md: "flex" },
+            flexGrow: 1,
+          }}
+        ></Box>
+        {/* <Typography
           variant="h4"
           noWrap
           sx={{
@@ -256,14 +272,20 @@ function ResponsiveAppBar() {
           }}
         >
           IOP
-        </Typography>
+        </Typography> */}
       </>
     );
   }
 
   function mobileMenuButton() {
     return (
-      <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: { xs: "flex", md: "none" },
+          alignItems: "start",
+        }}
+      >
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -307,6 +329,11 @@ function ResponsiveAppBar() {
             </MenuItem>
           ))}
         </Menu>
+        <Box
+          sx={{
+            flexGrow: 1,
+          }}
+        ></Box>
       </Box>
     );
   }

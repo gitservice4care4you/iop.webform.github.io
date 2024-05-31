@@ -7,6 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import styles from "./LanguageSelector.module.css";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import { useMediaQuery } from "@mui/material";
 
 import TranslateIcon from "@mui/icons-material/Translate";
 import { Stack } from "@mui/material";
@@ -51,6 +52,8 @@ export default function LanguageSelector() {
   const currentLocale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const mobileScreen = useMediaQuery("(min-width:500px)");
+
   const SelectStyle = {
     backgroundColor: "background.default",
     color: "common.black",
@@ -90,7 +93,7 @@ export default function LanguageSelector() {
   return (
     // <CacheProvider>
     <CacheProviderRTL>
-      <Box sx={{ minWidth: 150 }}>
+      <Box sx={{ minWidth: { md: 150, sm: 100, xs: 70 } }}>
         <FormControl fullWidth sx={{ padding: "0" }}>
           <Select
             className={styles.MuiSelect}
@@ -103,11 +106,12 @@ export default function LanguageSelector() {
             renderValue={() => (
               <Stack direction={"row"} gap={2}>
                 <TranslateIcon sx={{ fontWeight: "light", fontSize: "18px" }} />
-                {langs.map((e) => {
-                  if (e.locale === language) {
-                    return e.name;
-                  }
-                })}
+                {mobileScreen &&
+                  langs.map((e) => {
+                    if (e.locale === language) {
+                      return e.name;
+                    }
+                  })}
               </Stack>
             )}
             sx={SelectStyle}

@@ -21,8 +21,6 @@ type Props = {
 };
 
 function DefaultTextField(props: Props) {
-  const [error, setError] = React.useState<string | null>(null);
-
   return (
     <CacheProviderRTL>
       <Stack gap={1} width={props.fullwidth ? "100%" : undefined}>

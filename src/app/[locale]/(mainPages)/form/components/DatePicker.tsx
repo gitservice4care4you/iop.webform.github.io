@@ -5,13 +5,14 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CacheProviderRTL from "@/app/[locale]/components/cacheProviderRTL/CacheProviderRTL";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ar, faIR, enUS, fr } from "date-fns/locale";
 import { Stack, TextField, Typography } from "@mui/material";
+import { FieldType } from "@/shared/enum/selector";
 interface Props {
   label: string;
   helperText: string;
-  required?: boolean;
+  required: FieldType;
   value: Date;
   onChange?: (date: Date | null) => void;
 }
@@ -19,6 +20,7 @@ interface Props {
 export default function BasicDatePicker(props: Props) {
   const today = dayjs();
   const locale = useLocale();
+  const t = useTranslations("formpage");
   const customArSY = {
     // You can copy the entire enUS (or any other locale) object and modify only the month names
     ...ar,
@@ -65,7 +67,6 @@ export default function BasicDatePicker(props: Props) {
     fr: fr,
   };
   const adapterLocale = localeTextMap[locale] || null;
-  // console.log(adapterLocale["localize"]["monthValues"]);
   return (
     <CacheProviderRTL>
       <Stack gap={1}>
@@ -75,7 +76,11 @@ export default function BasicDatePicker(props: Props) {
           {/* required (*) */}
           {props.required ? (
             <Typography variant={"body1"} color={"red"}>
-              {props.required ? "*" : ""}
+              {props.required == FieldType.Required
+                ? "*"
+                : props.required == FieldType.Optional
+                ? t("optional")
+                : ""}
             </Typography>
           ) : null}
         </Stack>

@@ -4,7 +4,15 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Chip,
+  ListItemText,
+  OutlinedInput,
+  Stack,
+  Typography,
+} from "@mui/material";
 import CacheProviderRTL from "../../cacheProviderRTL/CacheProviderRTL";
 import { useTranslations } from "next-intl";
 import { FieldType } from "@/shared/enum/selector";
@@ -13,10 +21,19 @@ import {
   Category,
   SubCategory,
 } from "@/app/[locale]/(mainPages)/form/fakeData";
-
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 type Props = {
-  values: Category[] | SubCategory[] | Action[];
-  value: any;
+  values: string[];
+  value: number;
   required: FieldType;
   label: string;
   onChange: (event: SelectChangeEvent) => void;
@@ -24,6 +41,40 @@ type Props = {
 
 const DefaultSelector = (props: Props) => {
   const t = useTranslations("formpage");
+  const [personName, setPersonName] = React.useState<string[]>([]);
+
+  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+  const handleDelete = (event: any) => {
+    // event.preventDefault();
+
+    // event.stopPropagation();
+    console.log("delete");
+    // const tempList:string[]=[]
+    // personName.map((name)=>{
+    //   if(name!=m)
+    // });
+  };
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    console.log("click");
+    //   event.stopPropagation();
+    // console.log(event);
+    // const tempList: string[] = [];
+    // personName.map((item) => {
+    //   if (item != event.target) {
+    //     tempList.push(item);
+    //   }
+    //   console.log(item);
+    // });
+    // setPersonName(tempList);
+  };
 
   let textColor = "";
   if (props.required == FieldType.Optional) {
@@ -52,6 +103,7 @@ const DefaultSelector = (props: Props) => {
           {props.label}
         </Typography> */}
         <Select
+          multiple
           sx={{
             backgroundColor: "white",
             "& .MuiFormHelperText-root": {
@@ -64,13 +116,34 @@ const DefaultSelector = (props: Props) => {
           }}
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={props.value}
-          onChange={props.onChange}
+          value={personName}
+          onChange={handleChange}
+          onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            event.stopPropagation();
+            console.log(event.isPropagationStopped());
+          }}
+          renderValue={(selected) => (
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip
+                  key={value}
+                  component={"div"}
+                  label={value}
+                  color="primary"
+                  variant="outlined"
+                  // onClick={handleClick}
+                  // onDelete={handleDelete}
+                />
+              ))}
+            </Box>
+          )}
+          MenuProps={MenuProps}
         >
           {props.values.map((item) => {
             return (
-              <MenuItem key={item.id} value={item.id}>
-                {item.name}
+              <MenuItem key={item} value={item}>
+                <Checkbox checked={personName.includes(item)} />
+                <ListItemText primary={item} />
               </MenuItem>
             );
           })}

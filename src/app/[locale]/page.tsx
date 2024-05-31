@@ -5,41 +5,44 @@ import incidientImage from "../../../public/images/incidient.png";
 import DefaultButton from "./components/button/DefaultButton";
 import ToFormButton from "./components/button/ToFormButton";
 import { useTranslations } from "next-intl";
+import FormPage from "./(mainPages)/form/page";
 export default function Home() {
-  return (
-    <>
-      <Box className={styles.bodyHeight}>
-        <Container
-          className={styles.bodyHeight}
-          maxWidth="xl"
-          disableGutters
-          sx={{
-            marginY: "auto",
-            padding: "30px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Stack
-            direction={{ xs: "column", sm: "column", md: "row" }}
-            spacing={{ xs: 1, sm: 2, md: 4 }}
-            maxWidth="xl"
-            justifyContent={"center"}
-            alignItems={"center"}
-            flexGrow={1}
-          >
-            {/* Image */}
-            {imageBox()}
+  {
+    /* <Box className={styles.bodyHeight}> */
+  }
+  return <FormPage></FormPage>;
+  // <Container
+  //   className={styles.bodyHeight}
+  //   maxWidth="xl"
+  //   disableGutters
+  //   sx={{
+  //     marginY: "auto",
+  //     padding: "30px",
+  //     display: "flex",
+  //     flexDirection: "column",
+  //     justifyContent: "center",
 
-            {/* Welcome Text */}
-            {WelcomeTextBox()}
-          </Stack>
-        </Container>
-      </Box>
-    </>
-  );
+  //     alignItems: "center",
+  //   }}
+  // >
+  //   <Stack
+  //     direction={{ xs: "column", sm: "column", md: "row" }}
+  //     spacing={{ xs: 1, sm: 2, md: 4 }}
+  //     maxWidth="xl"
+  //     justifyContent={"center"}
+  //     alignItems={"center"}
+  //     flexGrow={1}
+  //   >
+  //     {/* Image */}
+  //     {imageBox()}
+
+  //     {/* Welcome Text */}
+  //     {WelcomeTextBox()}
+  //   </Stack>
+  // </Container>
+  {
+    /* </Box> */
+  }
 
   function WelcomeTextBox() {
     const t = useTranslations("homepage.titles");

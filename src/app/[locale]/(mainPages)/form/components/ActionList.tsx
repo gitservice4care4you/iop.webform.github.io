@@ -16,7 +16,8 @@ import {
   ActionListContext,
   ActionListProvider,
 } from "@/context/actionsListContext";
-import AddActionModal from "./AddActionModal";
+import AddActionDialog from "./AddActionDialog";
+import { ActionListModel } from "../models/ActionListModel";
 
 type Props = {
   onDeleteClick?: (id: string) => void;
@@ -44,11 +45,11 @@ const ActionList = (props: Props) => {
     const updatedItem: ActionListModel = data;
     updateItem(updatedItem.id!, updatedItem);
   };
-  console.log(list);
   return (
     <CacheProviderRTL>
-      <AddActionModal
+      <AddActionDialog
         open={open}
+        update={true}
         onClose={handleClose}
         data={currentListData && currentListData}
         onSubmit={handleUpdateItem}

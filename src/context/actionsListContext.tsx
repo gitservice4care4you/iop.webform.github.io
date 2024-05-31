@@ -1,10 +1,11 @@
+import { ActionListModel } from "@/app/[locale]/(mainPages)/form/models/ActionListModel";
 import React, { createContext, useState, useEffect, useMemo } from "react";
 
 interface ActionListContextValue {
   list: ActionListModel[];
   addItem: (item: ActionListModel) => void;
-  updateItem: (id: number, updatedItem: ActionListModel) => void;
-  removeItem: (id: number) => void;
+  updateItem: (id: string, updatedItem: ActionListModel) => void;
+  removeItem: (id: string) => void;
 }
 
 export const ActionListContext = createContext<ActionListContextValue>({
@@ -30,19 +31,18 @@ export const ActionListProvider: React.FC<ListProviderProps> = ({
   }, []);
 
   const addItem = (item: ActionListModel) => {
-    console.log(item);
     setList((prevList) => [...prevList, item]);
     // Save the updated list to an API or localStorage here
   };
 
-  const updateItem = (id: number, updatedItem: ActionListModel) => {
+  const updateItem = (id: string, updatedItem: ActionListModel) => {
     setList((prevList) =>
       prevList.map((item) => (item.id === id ? updatedItem : item))
     );
     // Update the item on an API or localStorage here
   };
 
-  const removeItem = (id: number) => {
+  const removeItem = (id: string) => {
     setList((prevList) => prevList.filter((item) => item.id !== id));
     // Remove the item from an API or localStorage here
   };

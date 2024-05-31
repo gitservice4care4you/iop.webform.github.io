@@ -1,12 +1,12 @@
-import { useLocale } from "next-intl"
+// import { useLocale } from "next-intl"
 
 
 
-const useLanguageHook = () => {
-    const currentLanguage = useLocale();
+// const useLanguageHook = () => {
+//     const currentLanguage = useLocale();
 
 
-    return [currentLanguage];
-}
+//     return [currentLanguage];
+// }
 
-export default useLanguageHook();
+// export default useLanguageHook();

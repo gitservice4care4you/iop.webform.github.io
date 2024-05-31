@@ -1,30 +1,11 @@
-type Category = {
-  id: number;
-  name: string | null;
-};
+import { Action, Category, SubCategory } from "../fakeData";
 
-type SubCategory = {
-  id: number;
-  name: string | null;
-};
-
-type Action = {
-  id: number;
-  name: string | null;
-};
-
-type ActionListModel = {
-  id: number | null;
+export type ActionListModel = {
+  id: string;
   category: Category | null;
   subCategory: SubCategory | null;
   action: Action | null;
-  howMany: number | null;
+  howMany: string;
 } & {
   toString(): string;
 };
-
-// class ActionListModel {
-//   toString(): string {
-//     return `${this.id}, ${this.category.name}, ${this.subCategory.name}, ${this.action.name}, ${this.howMany}`;
-//   }
-// }
