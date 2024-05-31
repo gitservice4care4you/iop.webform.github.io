@@ -44,10 +44,11 @@ const SupportPage = (props: Props) => {
   };
   const t = useTranslations("supportpage");
   return (
-    <Container maxWidth="xl" disableGutters className={styles.bodyHeight}>
+    <Container maxWidth="md" disableGutters className={styles.bodyHeight}>
       <Stack
         justifyContent={"start"}
         alignItems={"center"}
+        // maxWidth={"xl"}
         className={styles.bodyHeight}
         padding={4}
         spacing={3}
@@ -62,7 +63,7 @@ const SupportPage = (props: Props) => {
     return (
       <>
         <Typography variant="h3">{t("title")}</Typography>
-        <Typography variant="body1" width={"700px"} textAlign={"center"}>
+        <Typography variant="body1" textAlign={"center"}>
           {t("paragraph")}
         </Typography>
       </>
@@ -71,10 +72,10 @@ const SupportPage = (props: Props) => {
 
   function supportForm() {
     return (
-      <Box component="form" onSubmit={handleSubmit} width={"700px"}>
+      <Box component="form" onSubmit={handleSubmit} width={"100%"}>
         <Stack spacing={3} alignItems={"center"}>
           <DefaultTextField
-            label={"Email"}
+            label={t("email")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             error={emailError}
@@ -82,7 +83,7 @@ const SupportPage = (props: Props) => {
             fullwidth={true}
           />
           <DefaultTextField
-            label="Issue Description"
+            label={t("issueDescription")}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             error={descriptionError}

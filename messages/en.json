@@ -48,6 +48,8 @@
   },
   "supportpage": {
     "title": "Need Support?",
-    "paragraph": "Our support page is designed to provide you with the resources and assistance you need to get the most out of our application. Whether you have a question, need help troubleshooting an issue, or want to provide feedback, our dedicated support team is here to help. You can reach out to us through the contact form on this page, and we'll get back to you as soon as possible."
+    "paragraph": "Our support page is designed to provide you with the resources and assistance you need to get the most out of our application. Whether you have a question, need help troubleshooting an issue, or want to provide feedback, our dedicated support team is here to help. You can reach out to us through the contact form on this page, and we'll get back to you as soon as possible.",
+    "email": "Email address",
+    "issueDescription": "Issue description"
   }
 }

@@ -194,7 +194,6 @@ function ResponsiveAppBar() {
                   height: "100%",
                 }} // Add this line }}
               >
-                {" "}
                 {page.displayName}
               </Button>
             </Box>
@@ -252,12 +251,12 @@ function ResponsiveAppBar() {
             // flexGrow: 1,
           }}
         />
-        <Box
+        {/* <Box
           sx={{
             display: { xs: "none", md: "flex" },
             flexGrow: 1,
           }}
-        ></Box>
+        ></Box> */}
         {/* <Typography
           variant="h4"
           noWrap

@@ -48,6 +48,8 @@
   },
   "supportpage": {
     "title": "Besoin d'assistance ?",
-    "paragraph": "Notre page d'assistance est conçue pour vous fournir les ressources et l'aide dont vous avez besoin pour tirer le meilleur parti de notre application. Que vous ayez une question, besoin d'aide pour résoudre un problème ou que vous souhaitiez donner votre avis, notre équipe d'assistance dévouée est là pour vous aider. Vous pouvez nous contacter via le formulaire de contact sur cette page, et nous vous répondrons dès que possible."
+    "paragraph": "Notre page d'assistance est conçue pour vous fournir les ressources et l'aide dont vous avez besoin pour tirer le meilleur parti de notre application. Que vous ayez une question, besoin d'aide pour résoudre un problème ou que vous souhaitiez donner votre avis, notre équipe d'assistance dévouée est là pour vous aider. Vous pouvez nous contacter via le formulaire de contact sur cette page, et nous vous répondrons dès que possible.",
+    "email": "Adresse email",
+    "issueDescription": "Description du problème"
   }
 }

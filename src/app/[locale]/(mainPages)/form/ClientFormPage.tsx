@@ -84,7 +84,9 @@ function ClientFormPage({ data }: Props) {
         alignItems={"center"}
         flexGrow={1}
       >
-        <Typography variant="h3">{t("title")}</Typography>
+        <Typography variant="h3" textAlign={"center"}>
+          {t("title")}
+        </Typography>
         <FormStepper activeStep={stepperStep} />
         {currentPage()}
 
