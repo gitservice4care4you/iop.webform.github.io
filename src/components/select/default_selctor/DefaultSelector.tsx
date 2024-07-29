@@ -13,11 +13,14 @@ import {
   Category,
   SubCategory,
 } from "@/app/[locale]/(mainPages)/form/fakeData";
+import { isNull } from "util";
 
+// TODO: make it work with validation
 type Props = {
   values: Category[] | SubCategory[] | Action[];
   value: any;
   required: FieldType;
+  error: string | null;
   label: string;
   onChange: (event: SelectChangeEvent) => void;
 };
@@ -33,7 +36,10 @@ const DefaultSelector = (props: Props) => {
   }
   return (
     <CacheProviderRTL>
-      <FormControl sx={{ minWidth: 200 }}>
+      <FormControl
+        sx={{ minWidth: 200 }}
+        error={props.error != null ? true : false}
+      >
         <Stack direction={"row"} gap={0.5} marginBottom={1}>
           {/* main title */}
           <Typography variant={"body1"}>{props.label}</Typography>
@@ -52,6 +58,7 @@ const DefaultSelector = (props: Props) => {
           {props.label}
         </Typography> */}
         <Select
+          className=""
           sx={{
             backgroundColor: "white",
             "& .MuiFormHelperText-root": {
@@ -63,7 +70,7 @@ const DefaultSelector = (props: Props) => {
             },
           }}
           labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
+          id="demo-simple-select-error"
           value={props.value}
           onChange={props.onChange}
         >
@@ -75,7 +82,9 @@ const DefaultSelector = (props: Props) => {
             );
           })}
         </Select>
-        {/* <FormHelperText>With label + helper text</FormHelperText> */}
+        {props.error != "" ? (
+          <FormHelperText sx={{ color: "red" }}>{props.error}</FormHelperText>
+        ) : null}
       </FormControl>
     </CacheProviderRTL>
   );

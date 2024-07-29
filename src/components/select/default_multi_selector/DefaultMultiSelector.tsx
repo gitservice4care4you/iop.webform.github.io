@@ -33,7 +33,8 @@ const MenuProps = {
 };
 type Props = {
   values: string[];
-  value: number;
+  value: string[];
+  error: string | null;
   required: FieldType;
   label: string;
   onChange: (event: SelectChangeEvent) => void;
@@ -84,7 +85,10 @@ const DefaultSelector = (props: Props) => {
   }
   return (
     <CacheProviderRTL>
-      <FormControl sx={{ minWidth: 200 }}>
+      <FormControl
+        sx={{ minWidth: 200 }}
+        error={props.error != null ? true : false}
+      >
         <Stack direction={"row"} gap={0.5} marginBottom={1}>
           {/* main title */}
           <Typography variant={"body1"}>{props.label}</Typography>
@@ -148,7 +152,9 @@ const DefaultSelector = (props: Props) => {
             );
           })}
         </Select>
-        {/* <FormHelperText>With label + helper text</FormHelperText> */}
+        {props.error != "" ? (
+          <FormHelperText sx={{ color: "red" }}>{props.error}</FormHelperText>
+        ) : null}
       </FormControl>
     </CacheProviderRTL>
   );

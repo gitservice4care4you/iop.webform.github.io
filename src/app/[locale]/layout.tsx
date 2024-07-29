@@ -4,13 +4,13 @@ import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../styles/theme";
-import ResponsiveAppBar from "./components/navbar/NavBar";
-import Footer from "./components/footer/Footer";
+
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { useLocale } from "next-intl";
 import { setAppLanguage } from "@/shared/constants/languageVar";
 import { use } from "react";
+import ResponsiveAppBar from "@/components/navbar/NavBar";
 
 const cairo = Cairo({ subsets: ["latin"] });
 

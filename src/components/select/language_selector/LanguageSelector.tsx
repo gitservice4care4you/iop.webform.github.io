@@ -1,12 +1,10 @@
 "use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import styles from "./LanguageSelector.module.css";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import { useMediaQuery } from "@mui/material";
 
 import TranslateIcon from "@mui/icons-material/Translate";
@@ -14,7 +12,6 @@ import { Stack } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { setAppLanguage } from "@/shared/constants/languageVar";
-import { CacheProvider } from "@emotion/react";
 import CacheProviderRTL from "../../cacheProviderRTL/CacheProviderRTL";
 
 interface Language {
@@ -25,7 +22,6 @@ interface Language {
 const langs: Language[] = [
   {
     id: 2,
-
     name: "Arabic (العريبة)",
     locale: "ar",
   },
@@ -36,13 +32,11 @@ const langs: Language[] = [
   },
   {
     id: 4,
-
     name: "Farsi (فارسی)",
     locale: "fa",
   },
   {
     id: 3,
-
     name: "French",
     locale: "fr",
   },

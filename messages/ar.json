@@ -36,10 +36,14 @@
     "previous": "السابق",
     "validation": {
       "general": "هذا الحقل مطلوب!",
-      "actions": "يرجى إضافة إجراء واحد على الأقل."
+      "actions": "يرجى إضافة إجراء واحد على الأقل.",
+      "atLeastOne": "مطلوب عنصر واحد على الأقل",
+      "numericPositive": "يجب أن يكون رقمًا موجبًا"
     },
+    "requiredField": "هذا الحقل مطلوب",
     "country": "البلد",
     "city": "المدينة",
+    "area": "المنطقة",
     "locationDetails": "تفاصيل الموقع",
     "optional": "اختياري",
     "submit": "إرسال",

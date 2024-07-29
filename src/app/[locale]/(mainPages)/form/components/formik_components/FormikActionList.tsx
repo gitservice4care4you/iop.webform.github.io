@@ -15,29 +15,34 @@ import {
   ActionListContext,
   ActionListProvider,
 } from "@/context/actionsListContext";
-import AddActionDialog from "./AddActionDialog";
-import { ActionListModel } from "../models/ActionListModel";
 import CacheProviderRTL from "@/components/cacheProviderRTL/CacheProviderRTL";
 import theme from "@/styles/theme";
+import { ActionListModel } from "../../models/ActionListModel";
+import AddActionDialog from "../AddActionDialog";
+import { FieldArrayRenderProps, useField } from "formik";
 
 type Props = {
   onDeleteClick?: (id: string) => void;
   onEditClick?: (id: string) => void;
   values: ActionListModel[] | undefined;
   error?: boolean;
+  name?: string;
+  arrayMethods: FieldArrayRenderProps;
 };
 
-const ActionList = (props: Props) => {
+const FormikActionList = (props: Props) => {
   const { list, updateItem, removeItem } = useContext(ActionListContext);
+  const [field, meta] = useField(props.name!);
   const [open, setOpen] = React.useState(false);
   const [currentListData, setCurrentListData] =
     React.useState<ActionListModel | null>();
-
+  let currentItemIndex: number = 0;
   if (props.values != undefined) {
     props.values.forEach((item) => list.push(item));
   }
-  const handleEditDialogOpen = (data: ActionListModel) => {
+  const handleEditDialogOpen = (data: ActionListModel, itemIndex: number) => {
     setCurrentListData(data);
+    currentItemIndex = itemIndex;
     setOpen(true);
   };
 
@@ -50,7 +55,7 @@ const ActionList = (props: Props) => {
 
   const handleUpdateItem = (data: ActionListModel) => {
     const updatedItem: ActionListModel = data;
-    console.log(`actionList Page:${updatedItem.id}`);
+    props.arrayMethods.replace(currentItemIndex, updatedItem);
     updateItem(updatedItem.id!, updatedItem);
   };
 
@@ -74,7 +79,7 @@ const ActionList = (props: Props) => {
       >
         {Array.isArray(list) && list.length === 0
           ? emptyList()
-          : list!.map((action) => {
+          : list!.map((action, index) => {
               return (
                 <React.Fragment key={action.id}>
                   <ListItem key={action.id} alignItems="flex-start">
@@ -121,7 +126,7 @@ const ActionList = (props: Props) => {
                       aria-label="edit"
                       size="medium"
                       sx={{ color: "grey" }}
-                      onClick={() => handleEditDialogOpen(action)}
+                      onClick={() => handleEditDialogOpen(action, index)}
                     >
                       <EditIcon />
                     </IconButton>
@@ -129,7 +134,10 @@ const ActionList = (props: Props) => {
                       aria-label="delete"
                       size="medium"
                       sx={{ color: "red" }}
-                      onClick={() => removeItem(action.id!)}
+                      onClick={() => {
+                        props.arrayMethods.remove(index);
+                        removeItem(action.id!);
+                      }}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -164,4 +172,4 @@ const ActionList = (props: Props) => {
   }
 };
 
-export default ActionList;
+export default FormikActionList;

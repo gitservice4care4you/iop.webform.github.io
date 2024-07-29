@@ -1,6 +1,7 @@
 import { Container, Box, Stack, Typography } from "@mui/material";
 
 import React from "react";
+import MultiStepForm from "./formik_components/MultiStepForm";
 
 type Props = {
   children?: React.ReactNode;
@@ -36,6 +37,7 @@ function FormContainerComponent({ children, label }: Props) {
           <Typography marginX={"auto"} variant="h5" marginBottom={4}>
             {label}
           </Typography>
+
           {children}
         </Stack>
       </Box>

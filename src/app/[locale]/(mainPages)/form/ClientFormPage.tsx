@@ -2,62 +2,210 @@
 import {
   Box,
   Container,
+  listItemAvatarClasses,
   SelectChangeEvent,
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
-import FormStepper from "../../components/stepper/FormStepper";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../../main.module.css";
 import { useTranslations } from "next-intl";
 import FormContainerComponent from "./components/FormContainerComponent";
 import DatePicker from "./components/DatePicker";
 import DefaultTextField from "./components/DefaultTextField";
-import DefaultButton from "../../components/button/DefaultButton";
 import ActionList from "./components/ActionList";
 import {
   ActionListContext,
   ActionListProvider,
 } from "@/context/actionsListContext";
 import ActionTitleBar from "./components/ActionTitleBar";
-
-import DefaultSelector from "../../components/select/default_selctor/DefaultSelector";
 import { FieldType } from "@/shared/enum/selector";
 import { Uploader } from "uploader";
 import { UploadDropzone } from "react-uploader";
-import DefaultMultiSelector from "../../components/select/default_multi_selector/DefaultMultiSelector";
+import FormStepper from "@/components/stepper/FormStepper";
+import DefaultButton from "@/components/button/DefaultButton";
+import DefaultMultiSelector from "@/components/select/default_multi_selector/DefaultMultiSelector";
+import DefaultSelector from "@/components/select/default_selctor/DefaultSelector";
+// import MultiStepForm, { FormStep } from "./components/MultiStepForm";
+import * as Yup from "yup";
+import { Field, Form, Formik, FormikErrors, FormikTouched } from "formik";
 type Props = {
-  data: any;
+  data: any; // TODO: to be changed with the API schema
 };
 
+const infoValidationRules = {
+  whenHappen: { required: true },
+  whenHear: { required: true },
+  description: { required: true },
+  whatHappened: { required: true },
+  whoDidIt: { required: true },
+  rootCause: { required: true },
+  sourceOfInfo: { required: true },
+};
+const locationValidationRules = {
+  country: { required: true },
+  area: { required: true },
+  locationDetails: { required: false },
+};
+
+type FormData = {
+  whenHappen: Date | null;
+  whenHear: Date | null;
+  description: string;
+  whatHappened: string[];
+  whoDidIt: string[];
+  rootCause: string[];
+  sourceOfInfo: string[];
+  country: string;
+  area: string;
+  locationDetails: string;
+};
+type infoFormData = {
+  whenHappen?: string;
+  whenHear?: string;
+  description?: string;
+  whatHappened?: string[];
+  whoDidIt?: string[];
+  rootCause?: string[];
+  sourceOfInfo?: string[];
+};
 function ClientFormPage({ data }: Props) {
   /**
    *  * Variables
    */
+
+  const { list } = useContext(ActionListContext);
   const t = useTranslations("formpage");
   const [stepperStep, setStepperStep] = useState(0);
-  const [whenDate, setWhenDate] = useState<Date>();
-  const [heardDate, setHeardDate] = useState<Date>();
-  const [description, setDescription] = useState<Date>();
-  const [whoDidIt, setWhoDidIt] = useState<Date>();
-  const [rootCause, setRootCause] = useState<Date>();
-  const [sourceOfInfo, setSourceOfInfo] = useState<Date>();
-  const { list } = useContext(ActionListContext);
+  const [infoData, setInfoData] = useState<infoFormData>({});
 
+  const [infoError, setInfoError] = useState<{
+    [key: string]: string | undefined;
+  }>({});
+  const [locationError, setLocationError] = useState<{ [key: string]: string }>(
+    {}
+  );
+  const initialValues: FormData = {
+    whenHappen: null,
+    whenHear: null,
+    description: "",
+    whatHappened: [],
+    whoDidIt: [],
+    rootCause: [],
+    sourceOfInfo: [],
+    country: "",
+    area: "",
+    locationDetails: "",
+  };
+  const validationSchema = Yup.object().shape({
+    whenHappen: Yup.date().required(t("validation.general")),
+    whenHear: Yup.date().required(t("validation.general")),
+    description: Yup.string().required(t("validation.general")),
+    whatHappened: Yup.array().min(1, t("validation.atLeastOne")),
+    whoDidIt: Yup.array().min(1, t("validation.atLeastOne")),
+    rootCause: Yup.array().min(1, t("validation.atLeastOne")),
+    sourceOfInfo: Yup.array().min(1, t("validation.atLeastOne")),
+    country: Yup.string().required(t("validation.general")),
+    area: Yup.string().required(t("validation.general")),
+    locationDetails: Yup.string(),
+  });
   /**
    * & Functions
    */
 
-  const handleWhenDateChange = (newValue: Date | null) => {
-    if (newValue != null) {
-      setWhenDate(newValue!);
-    }
-  };
-  const handleHeardDateChange = (newValue: Date | null) => {
-    if (newValue != null) {
-      setHeardDate(newValue!);
-    }
-  };
+  // const handleWhenDateChange = (newValue: Date | null) => {
+  //   if (newValue != null) {
+  //     setInfoData((prevData) => ({
+  //       ...prevData,
+  //       whenHappen:
+  //         prevData.whenHappen == undefined || prevData.whenHappen == ""
+  //           ? newValue.toString()
+  //           : prevData.whenHappen,
+  //     }));
+  //     setInfoError((prevErrors) => ({
+  //       ...prevErrors,
+  //     }));
+  //   }
+  // };
+  // const handleHeardDateChange = (newValue: Date | null) => {
+  //   if (newValue != null) {
+  //     setInfoData((prevData) => ({
+  //       ...prevData,
+  //       whenHear:
+  //         prevData.whenHear == undefined || prevData.whenHear == ""
+  //           ? newValue.toString()
+  //           : prevData.whenHear,
+  //     }));
+  //     setInfoError((prevErrors) => ({
+  //       ...prevErrors,
+  //     }));
+  //   }
+  // };
+  // const handleDescriptionChange = (
+  //   newValue: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   if (newValue.target.value != null) {
+  //     setInfoData((prevData) => ({
+  //       ...prevData,
+  //       description: newValue.target!.value,
+  //     }));
+  //     setInfoError((prevErrors) => ({
+  //       ...prevErrors,
+  //       description: undefined,
+  //     }));
+  //   }
+  // };
+
+  function handleSubmit(values: FormData) {
+    console.log(values);
+    // TODO: Submit function
+  }
+  // useEffect(() => {
+  //   if (list.length != 0) {
+  //     setInfoError((prevData) => ({ ...prevData }));
+  //   }
+  // }, [list]);
+
+  // const validateInfoPage = () => {
+  //   const newErrors: { [key: string]: string } = {};
+  //   const requiredFields: (keyof infoFormData)[] = [
+  //     "whenHear",
+  //     "whenHappen",
+  //     "description",
+  //     "whatHappened",
+  //     "whoDidIt",
+  //     "rootCause",
+  //     "sourceOfInfo",
+  //   ];
+
+  //   requiredFields.forEach((field) => {
+  //     if (field == "whatHappened") {
+  //       if (list.length === 0) {
+  //         newErrors[field] = t("validation.general");
+  //       }
+  //       // if (
+  //       //   Object.keys(!infoData[field]).length === 0 &&
+  //       //   infoValidationRules[field as keyof typeof infoValidationRules]
+  //       //     ?.required
+  //       // ) {
+  //       //   newErrors[field] = t("validation.general");
+  //       // }
+  //     }
+  //     if (
+  //       !infoData[field] &&
+  //       infoValidationRules[field as keyof typeof infoValidationRules]?.required
+  //     ) {
+  //       newErrors[field] = t("validation.general");
+  //     }
+  //   });
+
+  //   if (Object.keys(newErrors).length === 0) {
+  //     return true;
+  //   } else {
+  //     setInfoError(newErrors);
+  //     return false;
+  //   }
+  // };
 
   return (
     <Container
@@ -74,24 +222,33 @@ function ClientFormPage({ data }: Props) {
         alignItems: "center",
       }}
     >
-      <Stack
-        direction={"column"}
-        spacing={{ xs: 1, sm: 2, md: 9 }}
-        // maxWidth="xl"
-
-        width={"100%"}
-        justifyContent={"start"}
-        alignItems={"center"}
-        flexGrow={1}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
       >
-        <Typography variant="h3" textAlign={"center"}>
-          {t("title")}
-        </Typography>
-        <FormStepper activeStep={stepperStep} />
-        {currentPage()}
+        {({ errors, touched, setFieldValue, values }) => (
+          <Form>
+            <Stack
+              direction={"column"}
+              spacing={{ xs: 1, sm: 2, md: 9 }}
+              width={"100%"}
+              justifyContent={"start"}
+              alignItems={"center"}
+              flexGrow={1}
+            >
+              <Typography variant="h3" textAlign={"center"}>
+                {t("title")}
+              </Typography>
+              <FormStepper activeStep={stepperStep} />
 
-        {nextPreviousButton()}
-      </Stack>
+              {currentPage(errors, touched, setFieldValue, values)}
+
+              {nextPreviousButton(errors)}
+            </Stack>
+          </Form>
+        )}
+      </Formik>
     </Container>
   );
 
@@ -99,12 +256,17 @@ function ClientFormPage({ data }: Props) {
    * Determines the current page to render based on the current stepper step.
    * @returns {JSX.Element} The component for the current page.
    */
-  function currentPage() {
+  function currentPage(
+    errors: FormikErrors<FormData>,
+    touched: FormikTouched<FormData>,
+    setFieldValue: any,
+    values: FormData
+  ) {
     switch (stepperStep) {
       case 0:
-        return informationSection();
+        return informationSection(errors, touched, setFieldValue, values);
       case 1:
-        return locationSection();
+        return locationSection(errors, touched, setFieldValue);
       default:
         return mediaSection();
     }
@@ -114,45 +276,40 @@ function ClientFormPage({ data }: Props) {
   /*                            //^ Location Section                            */
   /* -------------------------------------------------------------------------- */
 
-  function locationSection() {
+  function locationSection(
+    errors: FormikErrors<FormData>,
+    touched: FormikTouched<FormData>,
+    setFieldValue: any
+  ) {
     return (
       <FormContainerComponent label={t("location")}>
-        <DefaultSelector
+        <Field
+          name="country"
+          as={DefaultSelector}
           label={t("country")}
           values={[]}
-          value={undefined}
           required={FieldType.Required}
-          onChange={function (value: any): void {
-            throw new Error("Function not implemented.");
-          }}
-        ></DefaultSelector>
-        <DefaultSelector
-          label={"Area"}
+          error={touched.country && errors.country}
+          onChange={(value: any) => setFieldValue("country", value)}
+        />
+        <Field
+          name="area"
+          as={DefaultSelector}
+          label={t("area")}
           values={[]}
-          value={undefined}
           required={FieldType.Required}
-          onChange={function (value: any): void {
-            throw new Error("Function not implemented.");
-          }}
-        ></DefaultSelector>
-        {/* <DefaultSelector
-          label={t("city")}
-          values={[]}
-          value={undefined}
-          required={FieldType.Required}
-          onChange={function (value: any): void {
-            throw new Error("Function not implemented.");
-          }}
-        ></DefaultSelector> */}
-        <DefaultSelector
+          error={touched.area && errors.area}
+          onChange={(value: any) => setFieldValue("area", value)}
+        />
+        <Field
+          name="locationDetails"
+          as={DefaultSelector}
           label={t("locationDetails")}
           values={[]}
-          value={undefined}
           required={FieldType.Optional}
-          onChange={function (value: any): void {
-            throw new Error("Function not implemented.");
-          }}
-        ></DefaultSelector>
+          error={touched.locationDetails && errors.locationDetails}
+          onChange={(value: any) => setFieldValue("locationDetails", value)}
+        />
       </FormContainerComponent>
     );
   }
@@ -198,37 +355,46 @@ function ClientFormPage({ data }: Props) {
    * This section includes fields for when the incident happened, when the user heard about it, a description, and selectors for who was involved, the root cause, and the source of the information.
    * The section is wrapped in an `ActionListProvider` to manage the state of the action list.
    */
-  function informationSection() {
+  function informationSection(
+    errors: FormikErrors<FormData>,
+    touched: FormikTouched<FormData>,
+    setFieldValue: any,
+    values: FormData
+  ) {
     return (
       <ActionListProvider initialList={[]}>
         <FormContainerComponent label={t("information")}>
-          <DatePicker
+          <Field
+            name="whenHappen"
             label={t("whenHappen")}
-            value={whenDate!}
-            onChange={handleWhenDateChange}
-            required={FieldType.Required}
-            helperText={
-              ""
-              // errors.whenDate
+            as={DatePicker}
+            error={touched.whenHappen && errors.whenHappen}
+            onChange={(value: Date | null) =>
+              setFieldValue("whenHappen", value)
             }
+            required={FieldType.Required}
           />
-          <DatePicker
+          <Field
+            name="whenHear"
+            as={DatePicker}
             label={t("whenHear")}
-            value={heardDate!}
-            onChange={handleHeardDateChange}
+            error={touched.whenHear && errors.whenHear}
+            onChange={(value: Date | null) => setFieldValue("whenHear", value)}
             required={FieldType.Required}
-            helperText={
-              ""
-              // errors.heardDate
-            }
           />
-          {/* Description */}
-          <DefaultTextField
+          <Field
+            name="description"
+            as={DefaultTextField}
             rows={4}
             multiline={true}
             fullwidth={true}
+            error={touched.description && errors.description}
             label={t("description")}
             required={true}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFieldValue("description", e.target.value)
+            }
+            value={values.description}
             validationRules={{
               minLength: 30,
               maxLength: 600,
@@ -236,10 +402,25 @@ function ClientFormPage({ data }: Props) {
           />
           <Stack direction={"column"} width={"100%"}>
             <ActionTitleBar></ActionTitleBar>
-            <ActionList></ActionList>
+            <ActionList
+              error={touched.whatHappened && errors.whatHappened ? true : false}
+              values={list}
+            ></ActionList>
+            {touched.whatHappened && errors.whatHappened && (
+              <Typography
+                marginInlineStart={1.5}
+                variant="body2"
+                fontSize={"12px"}
+                color={"error"}
+              >
+                {errors.whatHappened}
+              </Typography>
+            )}
           </Stack>
 
-          <DefaultMultiSelector
+          <Field
+            name="whoDidIt"
+            as={DefaultMultiSelector}
             values={[
               "Oliver Hansen",
               "Van Henry",
@@ -252,14 +433,14 @@ function ClientFormPage({ data }: Props) {
               "Virginia Andrews",
               "Kelly Snyder",
             ]}
-            value={0}
             label={t("who")}
+            error={touched.whoDidIt && errors.whoDidIt}
             required={FieldType.Required}
-            onChange={function (value: SelectChangeEvent): void {
-              throw new Error("Function not implemented.");
-            }}
+            onChange={(value: string[]) => setFieldValue("whoDidIt", value)}
           />
-          <DefaultMultiSelector
+          <Field
+            name="rootCause"
+            as={DefaultMultiSelector}
             values={[
               "Oliver Hansen",
               "Van Henry",
@@ -272,14 +453,14 @@ function ClientFormPage({ data }: Props) {
               "Virginia Andrews",
               "Kelly Snyder",
             ]}
-            value={0}
             label={t("rootCause")}
             required={FieldType.Required}
-            onChange={function (value: SelectChangeEvent): void {
-              throw new Error("Function not implemented.");
-            }}
+            error={touched.rootCause && errors.rootCause}
+            onChange={(value: string[]) => setFieldValue("rootCause", value)}
           />
-          <DefaultMultiSelector
+          <Field
+            name="sourceOfInfo"
+            as={DefaultMultiSelector}
             values={[
               "Oliver Hansen",
               "Van Henry",
@@ -292,12 +473,10 @@ function ClientFormPage({ data }: Props) {
               "Virginia Andrews",
               "Kelly Snyder",
             ]}
-            value={0}
             label={t("sourceInfo")}
             required={FieldType.Required}
-            onChange={function (value: SelectChangeEvent): void {
-              throw new Error("Function not implemented.");
-            }}
+            error={touched.sourceOfInfo && errors.sourceOfInfo}
+            onChange={(value: string[]) => setFieldValue("sourceOfInfo", value)}
           />
         </FormContainerComponent>
       </ActionListProvider>
@@ -318,10 +497,11 @@ function ClientFormPage({ data }: Props) {
    *
    * @returns A React element containing the "Previous" and "Next" buttons.
    */
-  function nextPreviousButton() {
+  function nextPreviousButton(errors: FormikErrors<FormData>) {
     return (
       <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
         {stepperStep != 0 ? (
+          // & Previous
           <DefaultButton
             size="small"
             width={120}
@@ -338,6 +518,7 @@ function ClientFormPage({ data }: Props) {
         ) : (
           <Box></Box>
         )}
+        {/* // & Submit */}
         {stepperStep == 2 ? (
           <DefaultButton
             size="small"
@@ -349,6 +530,7 @@ function ClientFormPage({ data }: Props) {
             {t("submit")}
           </DefaultButton>
         ) : (
+          //& Next
           <DefaultButton
             size="small"
             width={120}

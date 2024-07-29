@@ -17,6 +17,7 @@ interface ButtonProps
   height?: number;
   variant?: "contained" | "outlined" | "text";
   size?: "small" | "medium" | "large"; //
+  type?: "submit" | "button" | "reset";
 }
 
 const DefaultButton: React.FC<ButtonProps> = ({
@@ -25,6 +26,7 @@ const DefaultButton: React.FC<ButtonProps> = ({
   variant = "contained",
   width,
   height,
+  type,
   ...rest
 }) => {
   let style: SxProps<Theme> | undefined = {
@@ -44,6 +46,7 @@ const DefaultButton: React.FC<ButtonProps> = ({
       variant={variant}
       {...rest}
       sx={style}
+      type={type}
     >
       {children}
     </MuiButton>

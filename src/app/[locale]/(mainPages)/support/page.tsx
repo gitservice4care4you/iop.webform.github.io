@@ -1,17 +1,10 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import styles from "../../main.module.css";
 import { useTranslations } from "next-intl";
 import DefaultTextField from "../form/components/DefaultTextField";
-import DefaultButton from "../../components/button/DefaultButton";
+import DefaultButton from "@/components/button/DefaultButton";
 
 type Props = {};
 

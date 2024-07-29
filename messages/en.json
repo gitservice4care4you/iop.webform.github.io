@@ -34,12 +34,16 @@
     "howMany": "How many?",
     "next": "Next",
     "previous": "Previous",
+    "requiredField": "This field is required",
     "validation": {
-      "general": "this field is required!",
-      "actions": "Please add at least 1 actions."
+      "general": "This field is required!",
+      "actions": "Please add at least 1 actions.",
+      "atLeastOne": "At least one item is required",
+      "numericPositive": "Must be a positive number"
     },
     "country": "Country",
     "city": "City",
+    "area": "Area",
     "locationDetails": "Location details",
     "optional": "Optional",
     "submit": "Submit",

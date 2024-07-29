@@ -14,12 +14,10 @@ import MenuItem from "@mui/material/MenuItem";
 import SpaIcon from "@mui/icons-material/Spa";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import useAppBarHooks from "../../../../hooks/useNavBarHook";
-import useLogin from "@/hooks/useLoginHook";
 import LanguageSelector from "../select/language_selector/LanguageSelector";
 import { useLocale, useTranslations } from "next-intl";
-import path from "path";
-import { Stack } from "@mui/material";
+
+import useAppBarHooks from "@/hooks/useNavBarHook";
 interface Pages {
   id: number;
   displayName: string;
@@ -38,17 +36,10 @@ function ResponsiveAppBar() {
   const settings = ["Logout"];
   const pathname = usePathname();
 
-  const loginHook = useLogin();
   const router = useRouter();
 
-  const {
-    anchorElNav,
-    anchorElUser,
-    handleOpenNavMenu,
-    handleOpenUserMenu,
-    handleCloseNavMenu,
-    handleCloseUserMenu,
-  } = useAppBarHooks();
+  const { anchorElNav, handleOpenNavMenu, handleCloseNavMenu } =
+    useAppBarHooks();
 
   return (
     <AppBar position="static">
@@ -107,42 +98,6 @@ function ResponsiveAppBar() {
     } else {
       return false;
     }
-  }
-
-  function userAvatar() {
-    return (
-      <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
-          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-          </IconButton>
-        </Tooltip>
-        <Menu
-          sx={{ mt: "45px" }}
-          id="menu-appbar"
-          anchorEl={anchorElUser}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          open={Boolean(anchorElUser)}
-          onClose={handleCloseUserMenu}
-        >
-          {settings.map((setting) => (
-            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-              <Typography textAlign="center" fontSize={16}>
-                {setting}
-              </Typography>
-            </MenuItem>
-          ))}
-        </Menu>
-      </Box>
-    );
   }
 
   function DesktopNavLinks() {

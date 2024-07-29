@@ -1,0 +1,5 @@
+TODO:
+
+1- ReCaptcha
+2- Edit Action not working, it doesn't save the changes.
+3- Security wise: Koert has an idea about how to make only the people with permission to access the site/form/app.

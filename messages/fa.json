@@ -25,6 +25,7 @@
     "whenHear": "چه زمانی از آن شنیدید؟",
     "whatActions": "اقدامات چه بودند؟",
     "description": "توضیحات",
+    "requiredField": "این فیلد الزامی است",
     "category": "دسته رویداد",
     "subCategory": "زیر دسته رویداد",
     "action": "اقدام",
@@ -36,10 +37,13 @@
     "previous": "قبلی",
     "validation": {
       "general": "این فیلد اجباری است!",
-      "actions": "لطفاً حداقل 1 اقدام را اضافه کنید."
+      "actions": "لطفاً حداقل 1 اقدام را اضافه کنید.",
+      "atLeastOne": "حداقل یک مورد لازم است",
+      "numericPositive": "باید یک عدد مثبت باشد"
     },
     "country": "کشور",
     "city": "شهر",
+    "area": "منطقه",
     "locationDetails": "جزئیات مکان",
     "optional": "اختیاری",
     "submit": "ارسال",

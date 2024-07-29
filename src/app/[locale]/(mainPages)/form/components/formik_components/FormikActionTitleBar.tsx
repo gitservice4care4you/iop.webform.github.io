@@ -5,15 +5,21 @@
 //  * It uses context to access and modify the list of actions.
 import { Stack, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import AddActionDialog from "./AddActionDialog";
+import FormikAddActionDialog from "./FormikAddActionDialog";
 import { ActionListContext } from "@/context/actionsListContext";
 import { useTranslations } from "next-intl";
 import { faker } from "@faker-js/faker";
-import { ActionListModel } from "../models/ActionListModel";
 import DefaultButton from "@/components/button/DefaultButton";
-type Props = {};
+import { ActionListModel } from "../../models/ActionListModel";
+import { FieldArrayRenderProps, useField, useFormikContext } from "formik";
+type Props = {
+  arrayMethods: FieldArrayRenderProps;
+};
 
-const ActionTitleBar = (props: Props) => {
+const FormikActionTitleBar = (props: Props) => {
+  const { setFieldValue } = useFormikContext();
+
+  const [field, meta] = useField("whatHappened");
   /**
    * Translates text using the current locale.
    */
@@ -51,7 +57,7 @@ const ActionTitleBar = (props: Props) => {
      * Converts the input data into the expected format for the action list.
      */
     const newItem: ActionListModel = data;
-
+    props.arrayMethods.push(newItem);
     /**
      * Adds the new item to the action list.
      */
@@ -65,7 +71,7 @@ const ActionTitleBar = (props: Props) => {
       alignItems={"end"}
     >
       {/** Renders the AddActionModal for adding new actions. */}
-      <AddActionDialog
+      <FormikAddActionDialog
         open={open}
         onClose={handleClose}
         onSubmit={(data) =>
@@ -105,4 +111,4 @@ const ActionTitleBar = (props: Props) => {
   );
 };
 
-export default ActionTitleBar;
+export default FormikActionTitleBar;

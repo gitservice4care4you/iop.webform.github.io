@@ -9,21 +9,22 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useTranslations } from "next-intl";
-import DefaultTextField from "./DefaultTextField";
 import { Grid } from "@mui/material";
 import { faker } from "@faker-js/faker";
-import "../fakeData";
-import {
-  Action,
-  Category,
-  SubCategory,
-  categoriesData,
-  subCategoriesData,
-} from "../fakeData";
 import { FieldType } from "@/shared/enum/selector";
-import { ActionListModel } from "../models/ActionListModel";
+
 import DefaultButton from "@/components/button/DefaultButton";
 import DefaultSelector from "@/components/select/default_selctor/DefaultSelector";
+import {
+  Action,
+  categoriesData,
+  Category,
+  subCategoriesData,
+  SubCategory,
+} from "../../fakeData";
+import { ActionListModel } from "../../models/ActionListModel";
+import DefaultTextField from "../DefaultTextField";
+import { useField } from "formik";
 
 type Props = {
   open: boolean;
@@ -38,7 +39,7 @@ const validationRules = {
   action: { required: true },
   howMany: { required: true }, // Assuming you want to allow only numbers
 };
-export default function AddActionDialog(props: Props) {
+export default function FormikAddActionDialog(props: Props) {
   /**
    * Initializes the state variables for the AddActionDialog component.
    *
@@ -86,8 +87,8 @@ export default function AddActionDialog(props: Props) {
   const [selectedActionId, setSelectedActionId] = React.useState<string>(
     data && data.action ? data.action.id : ""
   );
-  const [selectedHowMany, setSelectedHowMany] = React.useState<number>(
-    data ? parseInt(data.howMany) : 0
+  const [selectedHowMany, setSelectedHowMany] = React.useState<string>(
+    data ? data.howMany : ""
   );
 
   /* -------------------------------------------------------------------------- */
@@ -114,7 +115,7 @@ export default function AddActionDialog(props: Props) {
         handleChangeAction(action.id);
       }
       setItemID(data.id);
-      setSelectedHowMany(parseInt(howMany!));
+      setSelectedHowMany(howMany!);
     }
   }, [data]);
 
@@ -214,7 +215,7 @@ export default function AddActionDialog(props: Props) {
   const handleHowManyChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setSelectedHowMany(parseInt(event.target.value!));
+    setSelectedHowMany(event.target.value!);
   };
 
   /**
@@ -243,7 +244,7 @@ export default function AddActionDialog(props: Props) {
         category: cat,
         subCategory: subCat,
         action: action,
-        howMany: selectedHowMany.toString(),
+        howMany: selectedHowMany,
       };
 
       onSubmit(newData);
@@ -258,7 +259,7 @@ export default function AddActionDialog(props: Props) {
     setSelectedCategoryId("");
     setSelectedSubCategoryId("");
     setSelectedActionId("");
-    setSelectedHowMany(0);
+    setSelectedHowMany("");
   };
 
   const validateFields = (fieldName?: string) => {
@@ -287,13 +288,6 @@ export default function AddActionDialog(props: Props) {
         if (validationRules.howMany.required && !selectedHowMany) {
           newErrors["howMany"] = t("validation.general");
         }
-        if (
-          selectedHowMany &&
-          (!Number.isInteger(Number(selectedHowMany)) ||
-            Number(selectedHowMany) <= 0)
-        ) {
-          newErrors["howMany"] = t("validation.numericPositive");
-        }
       default:
         if (selectedCategoryId == "" && validationRules.category.required) {
           newErrors["category"] = t("validation.general");
@@ -306,13 +300,6 @@ export default function AddActionDialog(props: Props) {
         }
         if (validationRules.howMany.required && !selectedHowMany) {
           newErrors["howMany"] = t("validation.general");
-        }
-        if (
-          selectedHowMany &&
-          (!Number.isInteger(Number(selectedHowMany)) ||
-            Number(selectedHowMany) <= 0)
-        ) {
-          newErrors["howMany"] = t("validation.numericPositive");
         }
     }
 

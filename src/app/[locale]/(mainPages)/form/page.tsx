@@ -1,10 +1,11 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
-import React, { Suspense, use, useState } from "react";
+import { Container, Stack } from "@mui/material";
+import React, { Suspense } from "react";
 import styles from "../../main.module.css";
-import { useTranslations } from "next-intl";
 
-import LoadinIndicator from "../../components/loadingIndicator/LoadingIndicator";
-import ClientFormPage from "./ClientFormPage";
+import LoadinIndicator from "@/components/loadingIndicator/LoadingIndicator";
+import FormikFormPage from "./FormikFormPage";
+// import ClientFormPage from "./FormikFormPage";
+// import MultiStepForm from "./components/MultiStepForm";
 type Props = {};
 
 interface Data {
@@ -26,7 +27,8 @@ const FormPage = (props: Props) => {
       }
     >
       <Container maxWidth="md" disableGutters className={styles.bodyHeight}>
-        <ClientFormPage data={data}></ClientFormPage>
+        {/* <ClientFormPage data={data}></ClientFormPage> */}
+        <FormikFormPage></FormikFormPage>
       </Container>
     </Suspense>
   );

@@ -32,14 +32,18 @@
     "rootCause": "Cause principale",
     "sourceInfo": "Source d'information",
     "howMany": "Combien ?",
+    "requiredField": "Ce champ est obligatoire",
     "next": "Suivant",
     "previous": "Précédent",
     "validation": {
       "general": "Ce champ est obligatoire !",
-      "actions": "Veuillez ajouter au moins 1 action."
+      "actions": "Veuillez ajouter au moins 1 action.",
+      "atLeastOne": "Au moins un élément est requis",
+      "numericPositive": "Doit être un nombre positif"
     },
     "country": "Pays",
     "city": "Ville",
+    "area": "Zone",
     "locationDetails": "Détails de l'emplacement",
     "optional": "Optionnel",
     "submit": "Soumettre",

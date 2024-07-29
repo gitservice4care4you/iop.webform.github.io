@@ -10,16 +10,17 @@ import { Stack, TextField, Typography } from "@mui/material";
 import { FieldType } from "@/shared/enum/selector";
 import CacheProviderRTL from "@/components/cacheProviderRTL/CacheProviderRTL";
 import FormControl from "@mui/material/FormControl";
-import { useField, useFormikContext } from "formik";
+import { FormikProps, useField, useFormikContext } from "formik";
 
 interface Values {
   label: string;
-
+  name: string;
   required?: FieldType;
+  // setFieldValue?: (field: string, value: any, shouldValidate?: boolean) => {};
 }
 
-export default function BasicDatePicker({ label, required }: Values) {
-  const [field, meta, helpers] = useField(label);
+export default function FormikDatePicker({ label, name, required }: Values) {
+  const [field, meta, helpers] = useField(name);
   const { setFieldValue } = useFormikContext();
   const today = dayjs();
   const locale = useLocale();
@@ -27,7 +28,7 @@ export default function BasicDatePicker({ label, required }: Values) {
 
   // Map locale to respective localeText object
   const localeTextMap: { [key: string]: any } = {
-    // ar: customArSY,
+    ar: customArSY,
     en: enUS,
     fa: faIR,
     fr: fr,
@@ -56,13 +57,12 @@ export default function BasicDatePicker({ label, required }: Values) {
           localeText={adapterLocale}
         >
           <DatePicker
-            label=""
+            // label={label}
             {...field}
-            // {...props}
             // value={field.value ? new Date(field.value) : null}
-            // onChange={(date) => {
-            //   setFieldValue(label, date);
-            // }}
+            onChange={(value) => {
+              setFieldValue(name, value);
+            }}
             sx={{
               backgroundColor: "common.white",
               "& .MuiFormHelperText-root": {
@@ -86,41 +86,43 @@ export default function BasicDatePicker({ label, required }: Values) {
   );
 }
 
-// const customArSY = {
-//   // You can copy the entire enUS (or any other locale) object and modify only the month names
-//   ...ar,
-//   localize: {
-//     ...ar.localize,
-//     monthValues: {
-//       narrow: ["ك", "ش", "آ", "ن", "أ", "ح", "ت", "آ", "أ", "ت", "ت", "ك"],
-//       abbreviated: [
-//         "كانون الثاني",
-//         "شباط",
-//         "آذار",
-//         "نيسان",
-//         "أيار",
-//         "حزيران",
-//         "تموز",
-//         "آب",
-//         "أيلول",
-//         "تشرين الأول",
-//         "تشرين الثاني",
-//         "كانون الأول",
-//       ],
-//       wide: [
-//         "كانون الثاني",
-//         "شباط",
-//         "آذار",
-//         "نيسان",
-//         "أيار",
-//         "حزيران",
-//         "تموز",
-//         "آب",
-//         "أيلول",
-//         "تشرين الأول",
-//         "تشرين الثاني",
-//         "كانون الأول",
-//       ],
-//     },
-//   },
-// };
+const customArSY = {
+  // You can copy the entire enUS (or any other locale) object and modify only the month names
+  ...ar,
+  localize: {
+    ...ar.localize,
+    monthValues: {
+      narrow: ["ك", "ش", "آ", "ن", "أ", "ح", "ت", "آ", "أ", "ت", "ت", "ك"],
+      abbreviated: [
+        "كانون الثاني",
+        "شباط",
+        "آذار",
+        "نيسان",
+        "أيار",
+        "حزيران",
+        "تموز",
+        "آب",
+        "أيلول",
+        "تشرين الأول",
+        "تشرين الثاني",
+        "كانون الأول",
+      ],
+      wide: [
+        "كانون الثاني",
+        "شباط",
+        "آذار",
+        "نيسان",
+        "أيار",
+        "حزيران",
+        "تموز",
+        "آب",
+        "أيلول",
+        "تشرين الأول",
+        "تشرين الثاني",
+        "كانون الأول",
+      ],
+    },
+  },
+};
+
+// whatHappened must be a `array` type, but the final value was: `{ "id": "1", "category": { "id": "\"5\"", "name": "\"Hardware\"" }, "subCategory": { "id": "\"9\"", "name": "\"Firmware\"" }, "action": { "id": "\"1\"", "name": "\"Update\"" }, "howMany": "\"2\"" }`.
