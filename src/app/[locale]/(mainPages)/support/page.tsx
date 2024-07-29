@@ -5,9 +5,21 @@ import styles from "../../main.module.css";
 import { useTranslations } from "next-intl";
 import DefaultTextField from "../form/components/DefaultTextField";
 import DefaultButton from "@/components/button/DefaultButton";
+import { Form, Formik } from "formik";
+import FormikTextField from "../form/components/formik_components/FormikTextField";
+import { FieldType } from "@/shared/enum/selector";
+import * as Yup from "yup";
 
 type Props = {};
 
+const validationSchema = Yup.object({
+  email: Yup.string().email().required("Required"),
+  description: Yup.string().required("Required"),
+});
+const initialValues = {
+  email: "",
+  description: "",
+};
 const SupportPage = (props: Props) => {
   const [email, setEmail] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -36,6 +48,7 @@ const SupportPage = (props: Props) => {
     }
   };
   const t = useTranslations("supportpage");
+  const ft = useTranslations("formpage");
   return (
     <Container maxWidth="md" disableGutters className={styles.bodyHeight}>
       <Stack
@@ -65,36 +78,47 @@ const SupportPage = (props: Props) => {
 
   function supportForm() {
     return (
-      <Box component="form" onSubmit={handleSubmit} width={"100%"}>
-        <Stack spacing={3} alignItems={"center"}>
-          <DefaultTextField
-            label={t("email")}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={emailError}
-            helperText={emailError ? "Please enter your email" : ""}
-            fullwidth={true}
-          />
-          <DefaultTextField
-            label={t("issueDescription")}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            error={descriptionError}
-            helperText={descriptionError ? "Please enter a description" : ""}
-            fullwidth={true}
-            multiline
-            rows={4}
-          />
-          <DefaultButton
-            type="submit"
-            variant="contained"
-            color="primary"
-            width={200}
-          >
-            Submit
-          </DefaultButton>
-        </Stack>
-      </Box>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => {
+          console.log("sub");
+          alert(JSON.stringify(values, null, 2));
+        }}
+        validationSchema={validationSchema}
+      >
+        {({ handleSubmit, isSubmitting, errors, touched, values }) => {
+          return (
+            <Form onSubmit={handleSubmit} style={{ width: "100%" }}>
+              <Box width={"100%"}>
+                <Stack spacing={3} alignItems={"center"}>
+                  <FormikTextField
+                    label={t("email")}
+                    name="email"
+                    required={FieldType.Required}
+                  />
+
+                  <FormikTextField
+                    label={t("issueDescription")}
+                    name="description"
+                    fullwidth={true}
+                    multiline
+                    rows={4}
+                    required={FieldType.Required}
+                  />
+                  <DefaultButton
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    width={200}
+                  >
+                    {ft("submit")}
+                  </DefaultButton>
+                </Stack>
+              </Box>
+            </Form>
+          );
+        }}
+      </Formik>
     );
   }
 };
