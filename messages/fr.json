@@ -55,5 +55,9 @@
     "paragraph": "Notre page d'assistance est conçue pour vous fournir les ressources et l'aide dont vous avez besoin pour tirer le meilleur parti de notre application. Que vous ayez une question, besoin d'aide pour résoudre un problème ou que vous souhaitiez donner votre avis, notre équipe d'assistance dévouée est là pour vous aider. Vous pouvez nous contacter via le formulaire de contact sur cette page, et nous vous répondrons dès que possible.",
     "email": "Adresse email",
     "issueDescription": "Description du problème"
-  }
+  },
+  "resultpage": {
+    "successful-title": "Soumission réussie",
+    "successful-paragraph": "Merci d'avoir soumis votre rapport.\n Votre rapport a été soumis avec succès et sera examiné par notre équipe. Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter en envoyant un email depuis la page de support."
+    }
 }

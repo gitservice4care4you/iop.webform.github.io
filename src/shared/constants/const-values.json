@@ -1,0 +1,147 @@
+{
+    "Physical": {
+      "Sexual": [
+        {"incident": "Harassment (verbal / online)"},
+        {"incident": "Rape"},
+        {"incident": "Abuse (touching and following)"},
+        {"incident": "Grooming"},
+        {"incident": "Duplicate"}
+      ],
+      "Physical Harm": [
+        {"incident": "Mutilation of a person's body"},
+        {"incident": "Attempted murder"}
+      ],
+      "Abuse": [
+        {"incident": "Physical Abuse"},
+        {"incident": "Force-feeding, abuse of nutrition or medication"},
+        {"incident": "Physical abuse (non-sexual)"}
+      ],
+      "Mental Abuse": [
+        {"incident": "Mental Abuse"}
+      ],
+      "Dwelling restriction": [
+        {"incident": "Expulsion from home"},
+        {"incident": "Forced to leave household residence"}
+      ],
+      "Community Property": [
+        {"incident": "Christian property desecration, vandalism, or other nuisance"}
+      ],
+      "Abduction": [
+        {"incident": "Abduction or kidnap"}
+      ],
+      "Torture": [
+        {"incident": "Torture"}
+      ],
+      "Violence": [
+        {"incident": "Physical assault for humiliation/emotional harm"},
+        {"incident": "Physical assault for harm"}
+      ],
+      "Witchcraft": [
+        {"incident": "Suggest focusing in tangible manifestations (YH)"}
+      ],
+      "Public image": [
+        {"incident": "Online mobbing, smear or slander"}
+      ],
+      "Privacy": [
+        {"incident": "Loss of privacy"}
+      ],
+      "Separation from family": [
+        {"incident": "Denied access to Christian relatives"}
+      ],
+      "Trafficking": [
+        {"incident": "Trafficking: sexual exploitation (explicitly spoken of)"},
+        {"incident": "Trafficking: non-sexual exploitation, i.e. cheap labour"}
+      ],
+      "Harassment": [
+        {"incident": "Following, verbal, or any non-sexual harassment"}
+      ]
+    },
+    "Economic": {
+      "Illegal procedure": [
+        {"incident": "Economic harassment (authorities)"}
+      ],
+      "Harassment": [
+        {"incident": "Economic harassment (personal or non-government)"}
+      ],
+      "Fines": [
+        {"incident": "Fines"}
+      ],
+      "Loss of livelihood": [
+        {"incident": "Destruction of livelihood"}
+      ],
+      "Access to jobs or income creation": [
+        {"incident": "Loss of employment or job opportunities"}
+      ],
+      "Loss of assets": [
+        {"incident": "Confiscation of personal assets"},
+        {"incident": "Theft or looting"}
+      ]
+    },
+    "Legal": {
+      "Personal Freedom": [
+        {"incident": "Slavery or bonded servitude"}
+      ],
+      "Imprisonment": [
+        {"incident": "Imprisonment in labor camp"},
+        {"incident": "Detention at home, in jail, labor camp, psychiatric hospital or other"}
+      ],
+      "Privacy": [
+        {"incident": "Search of private and digital property"}
+      ],
+      "Right to services": [
+        {"incident": "Refused access to public services (legal, security, medical, education)"}
+      ],
+      "Freedom of movement": [
+        {"incident": "Limiting or controlling freedom of movement"},
+        {"incident": "Forced conscription into militia"}
+      ],
+      "Freedom of worship": [
+        {"incident": "Restriction on church rights"}
+      ],
+      "Dwelling restriction": [
+        {"incident": "Dwelling restriction"}
+      ],
+      "Forced marriage": [
+        {"incident": "Forced marriage"}
+      ],
+      "Forced divorce": [
+        {"incident": "Forced divorce"}
+      ],
+      "Unlawful Imprisonment": [
+        {"incident": "Unlawful Imprisonment"}
+      ],
+      "Family rights": [
+        {"incident": "Family rights"}
+      ],
+      "Freedom of expression": [
+        {"incident": "Limitation of expression of faith"}
+      ],
+      "Civil Rights": [
+        {"incident": "Confiscation of Christian property (church, building, land or other)"}
+      ],
+      "Freedom of belief": [
+        {"incident": "Prevented from holding religious events (wedding, funeral, baptism or other)"},
+        {"incident": "Forced to join religious rituals of another faith"}
+      ],
+      "Freedom of Worship": [
+        {"incident": "Expelled from church position, church function or worship access"}
+      ],
+      "Legal rights": [
+        {"incident": "Interrogation and interviews"}
+      ],
+      "Injustice": [
+        {"incident": "Unjust legal accusations, lack of representation, not following due process"}
+      ]
+    },
+    "Social": {
+      "Social Image": [
+        {"incident": "Smear campaigns, libel and slander (excluding online)"}
+      ]
+    },
+    "Psychological": {
+      "Threat": [
+        {"incident": "Death threat"}
+      ]
+    }
+   
+  }

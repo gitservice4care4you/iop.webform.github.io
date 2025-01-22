@@ -11,12 +11,14 @@ import {
 import { Box, Container, Stack, Typography } from "@mui/material";
 import FormNavigation from "./FormNavigation";
 import FormStepper from "@/components/stepper/FormStepper";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   ActionListContext,
   ActionListProvider,
 } from "@/context/actionsListContext";
 import { ActionListModel } from "../../models/ActionListModel";
+import { useRouter } from "next/navigation";
+
 interface Props extends FormikConfig<FormikValues> {
   children: React.ReactNode;
 }
@@ -30,9 +32,10 @@ const MultiStepForm = (props: Props) => {
   const step = steps[stepNumber];
   const totalSteps = steps.length;
   const isLastStep = stepNumber === totalSteps - 1;
+  const currentLocale = useLocale();
 
   const { list, addItem } = useContext(ActionListContext);
-
+  const router = useRouter();
   const next = (values: FormikValues) => {
     setSnapshot(values);
     setStepNumber(stepNumber + 1);
@@ -55,7 +58,10 @@ const MultiStepForm = (props: Props) => {
       await step.props.onSubmit(values);
     }
     if (isLastStep) {
-      return props.onSubmit(values, actions);
+      // return props.onSubmit(values, actions);
+      setTimeout(() => {
+        router.push(`/${currentLocale}/result`);
+      }, 0);
     } else {
       actions.setTouched({});
       next(values);

@@ -18,6 +18,7 @@ interface ButtonProps
   variant?: "contained" | "outlined" | "text";
   size?: "small" | "medium" | "large"; //
   type?: "submit" | "button" | "reset";
+  sx?: SxProps<Theme>;
 }
 
 const DefaultButton: React.FC<ButtonProps> = ({
@@ -27,9 +28,10 @@ const DefaultButton: React.FC<ButtonProps> = ({
   width,
   height,
   type,
+  sx,
   ...rest
 }) => {
-  let style: SxProps<Theme> | undefined = {
+  let style: SxProps<Theme> = {
     typography: {
       sm: "subtitle1",
       xs: "subtitle1",
@@ -38,6 +40,7 @@ const DefaultButton: React.FC<ButtonProps> = ({
     textTransform: "none",
     width: width != null ? `${width}px` : null,
     height: height != null ? `${height}px` : null,
+    ...sx,
   };
 
   return (
